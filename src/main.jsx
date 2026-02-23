@@ -8,6 +8,7 @@ import { AuthWrapper } from "./context/auth.context.jsx";
 import LoginPage from "./pages/login/index.jsx";
 import RegisterPage from "./pages/register/index.jsx";
 import DashBoard from "./pages/dashboard/index.jsx";
+import NoteEditorPage from "./pages/note-editor/index.jsx";
 
 const router = createBrowserRouter([
   {
@@ -16,15 +17,27 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        path: "/dashboard",
+        path: "dashboard",
         element: <DashBoard />,
+      },
+      {
+        path: "notes",
+        element: <NoteEditorPage />,
+        children: [
+          {
+            // This matches /notes (Create Mode)
+            index: true,
+            element: <NoteEditorPage />,
+          },
+          {
+            // This matches /notes/{id} (Edit Mode)
+            path: ":noteId",
+            element: <NoteEditorPage />,
+          },
+        ],
       },
     ],
   },
-  // {
-  //   path: "register",
-  //   element: <RegisterPage />,
-  // },
   {
     path: "login",
     element: <LoginPage />,

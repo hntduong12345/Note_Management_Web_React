@@ -5,19 +5,41 @@ import { Search, Plus, LayoutGrid, List } from "lucide-react";
 import NoteCard from "../../components/ui/NoteCard";
 
 export default function DashboardPage() {
+  //Mock date data
+  const yesterday = () => {
+    const d = new Date();
+    d.setDate(d.getDate() - 1);
+    return d;
+  };
+
+  const now = () => new Date();
+
   const [notes, setNote] = useState([
     {
       id: 1,
       title: "React Router Navigation",
       content: "How to use useNavigate instead of router.push in React apps.",
       category: "Frontend",
-      tags: [{ name: "react" }, { name: "routing" }, { name: "navigation" }],
+      updatedAt: yesterday(),
+      createdAt: yesterday(),
+      tags: [
+        { name: "react" },
+        { name: "routing" },
+        { name: "navigationdddddd" },
+        { name: "Test" },
+        { name: "navigation" },
+        { name: "navigation" },
+        { name: "navigation" },
+        { name: "navigation" },
+      ],
     },
     {
       id: 2,
       title: "Tailwind Input Styling",
       content: "Fix input height using h-* instead of padding.",
       category: "CSS",
+      updatedAt: yesterday(),
+      createdAt: yesterday(),
       tags: [{ name: "tailwind" }, { name: "css" }, { name: "ui" }],
     },
     {
@@ -25,6 +47,8 @@ export default function DashboardPage() {
       title: "Authentication Flow",
       content: "Implement login, register, and forgot password screens.",
       category: "Backend",
+      updatedAt: yesterday(),
+      createdAt: yesterday(),
       tags: [{ name: "auth" }, { name: "security" }, { name: "jwt" }],
     },
     {
@@ -32,6 +56,8 @@ export default function DashboardPage() {
       title: "Sidebar Layout",
       content: "Create a collapsible sidebar with active route highlight.",
       category: "UI",
+      updatedAt: yesterday(),
+      createdAt: yesterday(),
       tags: [{ name: "layout" }, { name: "sidebar" }, { name: "design" }],
     },
     {
@@ -39,6 +65,8 @@ export default function DashboardPage() {
       title: "Search Optimization",
       content: "Filter notes by title, content, category, and tags.",
       category: "Utilities",
+      updatedAt: yesterday(),
+      createdAt: yesterday(),
       tags: [{ name: "search" }, { name: "filter" }, { name: "performance" }],
     },
   ]);
@@ -148,7 +176,7 @@ export default function DashboardPage() {
             </p>
           </div>
         ) : viewMode === "grid" ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {filteredNotes.map((note) => (
               <NoteCard key={note.id} note={note} viewMode={viewMode} />
             ))}

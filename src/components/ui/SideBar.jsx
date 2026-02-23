@@ -18,7 +18,7 @@ export default function SideBar() {
 
   const navItems = [
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/notes/new", label: "New Note", icon: FilePlus },
+    { href: "/notes", label: "Note Editor", icon: FilePlus },
     { href: "/categories", label: "Categories", icon: FolderOpen },
     { href: "/tags", label: "Tags", icon: Tag },
     { href: "/trash", label: "Trash", icon: Trash2 },
