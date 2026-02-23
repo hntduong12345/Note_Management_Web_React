@@ -9,6 +9,8 @@ import LoginPage from "./pages/login/index.jsx";
 import RegisterPage from "./pages/register/index.jsx";
 import DashBoard from "./pages/dashboard/index.jsx";
 import NoteEditorPage from "./pages/note-editor/index.jsx";
+import CategoryPage from "./pages/category/index.jsx";
+import TrashPage from "./pages/trash/index.jsx";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,14 @@ const router = createBrowserRouter([
             element: <NoteEditorPage />,
           },
         ],
+      },
+      {
+        path: "categories",
+        element: <CategoryPage />,
+      },
+      {
+        path: "trash",
+        element: <TrashPage />,
       },
     ],
   },

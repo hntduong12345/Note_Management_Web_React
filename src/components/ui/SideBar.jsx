@@ -20,7 +20,6 @@ export default function SideBar() {
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { href: "/notes", label: "Note Editor", icon: FilePlus },
     { href: "/categories", label: "Categories", icon: FolderOpen },
-    { href: "/tags", label: "Tags", icon: Tag },
     { href: "/trash", label: "Trash", icon: Trash2 },
   ];
 

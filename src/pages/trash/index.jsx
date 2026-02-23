@@ -1,10 +1,10 @@
 import React from "react";
-import CategoryPage from "./CategoryPage";
+import TrashPage from "./TrashPage";
 
 export default function index() {
   return (
     <div>
-      <CategoryPage />
+      <TrashPage />
     </div>
   );
 }

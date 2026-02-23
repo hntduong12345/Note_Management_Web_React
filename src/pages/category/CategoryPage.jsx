@@ -1,145 +1,146 @@
-import React from "react";
+import React, { useState } from "react";
+import { Plus } from "lucide-react";
+import { Link } from "react-router-dom";
+import DefaultObj from "../../assets/default_object.png";
+import CategoryModal from "./CategoryModal";
 
 export default function CategoryPage() {
+  //Mock Data
+  const mockCategories = [
+    {
+      id: "cat_frontend",
+      name: "Frontend",
+      icon: "",
+      color: "#3b82f6", // blue
+    },
+    {
+      id: "cat_backend",
+      name: "Backend",
+      icon: "",
+      color: "#10b981", // green
+    },
+    {
+      id: "cat_ui",
+      name: "UI / UX",
+      icon: "",
+      color: "#8b5cf6", // purple
+    },
+    {
+      id: "cat_devops",
+      name: "DevOps",
+      icon: "",
+      color: "#f59e0b", // amber
+    },
+    {
+      id: "cat_personal",
+      name: "Personal",
+      icon: "",
+      color: "#ec4899", // pink
+    },
+    {
+      id: "cat_learning",
+      name: "Learning",
+      icon: "",
+      color: "#ef4444", // red
+    },
+  ];
+
+  const mockNotes = [
+    { id: 1, category: "Frontend" },
+    { id: 2, category: "Frontend" },
+    { id: 3, category: "Backend" },
+    { id: 4, category: "UI / UX" },
+    { id: 5, category: "UI / UX" },
+    { id: 6, category: "UI / UX" },
+    { id: 7, category: "Personal" },
+  ];
+
+  const getNotesCount = (categoryName) =>
+    mockNotes.filter((n) => n.category === categoryName).length;
+
+  const [categories, setCategories] = useState(mockCategories);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleCloseModal = () => {
+    setShowModal(!showModal);
+  };
+
+  const [cateName, setCateName] = useState("");
+  const [icon, setIcon] = useState("");
+
+  const handleCreateCategory = async () => {};
+
   return (
-    <div className="flex flex-col h-full">
-      {/* Header */}
-      <header className="flex items-center justify-between px-8 py-6">
+    <div className="flex flex-col h-full pt-[1.4rem] px-[2rem]">
+      {/* Header Part */}
+      <header className="flex items-center justify-between ">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Categories</h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Manage your knowledge folders
+          <h1 className="text-[1.6rem] text-foreground">Categories</h1>
+          <p className="text-sm text-muted-foreground mt-[0.2rem]">
+            Manage your note collections
           </p>
         </div>
         <button
-          onClick={() => setShowModal(true)}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
+          className="flex items-center gap-2 px-[0.6rem] py-[0.3rem] rounded-lg
+                     bg-primary text-primary-foreground text-[0.8rem] font-[700]
+                     hover:opacity-85 transition-opacity"
+          onClick={() => setShowModal(!showModal)}
         >
-          <Plus className="w-4 h-4" />
+          <Plus className="w-[1rem] mr-[0.4rem] font-[700]" />
           Add Category
         </button>
       </header>
 
-      {/* Category Grid */}
-      <div className="flex-1 px-8 pb-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {categories.map((cat) => {
-            const Icon = iconMap[cat.icon] || FolderOpen;
-            const count = getNotesCount(cat.name);
+      {/* Body Part */}
+      <div className="flex-1 px-8 pb-8 mt-[2rem]">
+        <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-[1rem]">
+          {/* Loop the Categories  */}
+          {categories.map((category) => {
+            const count = getNotesCount(category.name);
             return (
               <div
-                key={cat.id}
-                className="flex flex-col p-6 bg-card rounded-xl border border-border hover:shadow-md transition-shadow"
+                key={category.id}
+                className="flex flex-col p-[1.5rem] bg-card rounded-xl border border-border
+                           hover:shadow-md transition-shadow"
               >
                 <div
-                  className="flex items-center justify-center w-12 h-12 rounded-xl mb-4"
-                  style={{ backgroundColor: `${cat.color}15` }}
+                  className="flex items-center justify-center w-[3rem] h-[3rem] rounded-xl mb-[1rem]"
+                  style={{ background: "white" }}
                 >
-                  <Icon className="w-5 h-5" style={{ color: cat.color }} />
+                  <img
+                    src={category.icon == "" ? DefaultObj : category.icon}
+                    className="w-[2.4rem] h-[2.4rem]"
+                  />
                 </div>
-                <h3 className="text-base font-semibold text-foreground mb-1">
-                  {cat.name}
+                <h3 className="text-base font-[600] text-foreground mb-[0.3rem]">
+                  Category Name
                 </h3>
-                <p className="text-xs text-muted-foreground mb-4">
+                <p className="text-[0.75rem] text-muted-foreground mb-[1rem]">
                   {count} {count === 1 ? "note" : "notes"}
                 </p>
-                <Link
-                  href="/dashboard"
-                  className="text-xs font-medium text-[#3b82f6] hover:underline mt-auto"
+                {/* <Link
+                  to={"/dashboard"}
+                  className="text-[0.75rem] font-[500] text-[#3b82f6] hover:underline mt-auto"
                 >
                   {"View Notes →"}
-                </Link>
+                </Link> */}
               </div>
             );
           })}
         </div>
       </div>
 
-      {/* Add Category Modal */}
+      {/* Add modals */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/30">
-          <div className="w-full max-w-sm p-6 bg-card rounded-xl border border-border shadow-lg">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-bold text-foreground">
-                New Category
-              </h2>
-              <button
-                onClick={() => setShowModal(false)}
-                className="text-muted-foreground hover:text-foreground"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div className="flex flex-col gap-4">
-              <div>
-                <label className="text-sm font-medium text-foreground mb-1 block">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  placeholder="Category name"
-                  value={newName}
-                  onChange={(e) => setNewName(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-lg border border-border bg-card text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/30"
-                />
-              </div>
-
-              <div>
-                <label className="text-sm font-medium text-foreground mb-2 block">
-                  Icon
-                </label>
-                <div className="flex gap-2">
-                  {iconOptions.map((opt) => {
-                    const OptIcon = iconMap[opt.key];
-                    return (
-                      <button
-                        key={opt.key}
-                        onClick={() => setNewIcon(opt.key)}
-                        className={`p-2 rounded-lg border transition-colors ${
-                          newIcon === opt.key
-                            ? "border-primary bg-secondary"
-                            : "border-border hover:bg-secondary"
-                        }`}
-                        aria-label={opt.label}
-                      >
-                        <OptIcon className="w-4 h-4 text-foreground" />
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div>
-                <label className="text-sm font-medium text-foreground mb-2 block">
-                  Color
-                </label>
-                <div className="flex gap-2">
-                  {colorOptions.map((c) => (
-                    <button
-                      key={c}
-                      onClick={() => setNewColor(c)}
-                      className={`w-8 h-8 rounded-full border-2 transition-all ${
-                        newColor === c
-                          ? "border-foreground scale-110"
-                          : "border-transparent"
-                      }`}
-                      style={{ backgroundColor: c }}
-                      aria-label={`Color ${c}`}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              <button
-                onClick={handleAddCategory}
-                className="w-full py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity mt-2"
-              >
-                Create Category
-              </button>
-            </div>
-          </div>
-        </div>
+        <CategoryModal
+          cateName={cateName}
+          setCateName={setCateName}
+          icon={icon}
+          setIcon={setIcon}
+          handleCreateCategory={handleCreateCategory}
+          handleCloseModal={handleCloseModal}
+        />
       )}
     </div>
   );
