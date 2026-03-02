@@ -38,7 +38,7 @@ export default function SideBar() {
           <BrainCircuit className="w-5 h-5 text-primary-foreground" />
         </div>
         <span className="text-[1.2rem] font-[1000] text-foreground tracking-tight">
-          MindHub
+          NoteHub
         </span>
       </div>
 
